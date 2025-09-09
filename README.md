@@ -33,4 +33,3 @@ A simple, clean, and user-friendly web application to track your monthly expense
 - jsPDF library for PDF export
 - Browser Local Storage for data persistence
 
-This project is open-source and available under the [MIT License](LICENSE).
