@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Expense Tracker</h1>
+            <div class="month" id="monthDisplay" onclick="makeMonthEditable()">May 2023</div>
+            <input type="text" class="month-input" id="monthInput" value="May 2023" style="display: none;"
+                onblur="saveMonth()">
+        </header>
+
+        <div class="content">
+            <div class="summary">
+                <div class="summary-card incoming">
+                    <h3>INCOMING</h3>
+                    <div class="amount" id="totalIncoming">Rs. 0</div>
+                </div>
+                <div class="summary-card outgoing">
+                    <h3>OUTGOING</h3>
+                    <div class="amount" id="totalOutgoing">Rs. 0</div>
+                </div>
+                <div class="summary-card balance">
+                    <h3>BALANCE</h3>
+                    <div class="amount" id="totalBalance">Rs. 0</div>
+                </div>
+            </div>
+
+            <div class="expense-form">
+                <h2>Enter your expense here...</h2>
+                <form id="expenseForm">
+                    <div class="form-group">
+                        <label for="type">Select type of expense</label>
+                        <select id="type" required>
+                            <option value="">-- Select Type --</option>
+                            <option value="incoming">Incoming</option>
+                            <option value="outgoing">Outgoing</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Enter description</label>
+                        <input type="text" id="description" placeholder="Description" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Enter Amount</label>
+                        <input type="number" id="amount" placeholder="Amount in Rs." required min="0" step="0.01">
+                    </div>
+
+                    <button class="submitexpense" type="submit">Submit Expense</button>
+                </form>
+            </div>
+
+            <h2>Expense Records</h2>
+            <table class="expense-table">
+                <thead>
+                    <tr>
+                        <th>Expense Type</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseTableBody">
+                    <tr class="empty-table">
+                        <td colspan="4">No expenses recorded yet. Add your first expense above.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="action-buttons">
+                <button class="share-btn" onclick="shareAsPDF()">
+                    <i class="fas fa-share"></i> Share as PDF
+                </button>
+                <button class="print-btn" onclick="printPDF()">
+                    <i class="fas fa-print"></i> Print
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
