@@ -4,7 +4,7 @@ window.jsPDF = window.jspdf.jsPDF;
 // Expense data structure
 let expenses = [];
 let editIndex = -1;
-let currentMonth = "May 2023";
+let currentMonth = new Date().toLocaleDateString();
 
 document.addEventListener("DOMContentLoaded", function () {
   const expenseForm = document.getElementById("expenseForm");
@@ -155,7 +155,7 @@ function renderExpenses() {
                         <p class="description-text">${expense.description}</p>
                         <p class="date-text">${expense.date}</p>
                     </td>
-                    <td>Rs. ${expense.amount.toLocaleString()}</td>
+                    <td>₹ ${expense.amount.toLocaleString()}</td>
                     <td>
                         <div class="action-menu">
                             <div class="menu-icon">
@@ -188,11 +188,11 @@ function updateSummary() {
   const totalBalance = totalIncoming - totalOutgoing;
 
   document.getElementById("totalIncoming").textContent =
-    "Rs. " + totalIncoming.toLocaleString();
+    "₹ " + totalIncoming.toLocaleString();
   document.getElementById("totalOutgoing").textContent =
-    "Rs. " + totalOutgoing.toLocaleString();
+    "₹ " + totalOutgoing.toLocaleString();
   document.getElementById("totalBalance").textContent =
-    "Rs. " + totalBalance.toLocaleString();
+    "₹ " + totalBalance.toLocaleString();
 }
 
 function deleteExpense(index) {
@@ -227,7 +227,7 @@ function makeMonthEditable() {
 
 function saveMonth() {
   const monthInput = document.getElementById("monthInput");
-  currentMonth = monthInput.value.trim() || "May 2023";
+  currentMonth = monthInput.value.trim() || new Date();
   document.getElementById("monthDisplay").textContent = currentMonth;
   monthInput.style.display = "none";
   document.getElementById("monthDisplay").style.display = "inline-block";
@@ -282,12 +282,12 @@ function generatePDF(action) {
     },
     {
       type: "Outgoing",
-      amount: "Rs. " + totalOutgoing.toLocaleString(),
+      amount: "Rs." + totalOutgoing.toLocaleString(),
       color: [231, 74, 59],
     },
     {
       type: "Balance",
-      amount: "Rs. " + totalBalance.toLocaleString(),
+      amount: "Rs." + totalBalance.toLocaleString(),
       color: [78, 115, 223],
     },
   ];
@@ -311,7 +311,7 @@ function generatePDF(action) {
       expense.type.charAt(0).toUpperCase() + expense.type.slice(1),
       expense.description,
       expense.date,
-      "Rs. " + expense.amount.toLocaleString(),
+      "Rs." + expense.amount.toLocaleString(),
     ]);
   });
 
@@ -333,7 +333,7 @@ function generatePDF(action) {
       columnStyles: {
         0: { cellWidth: 25 },
         1: { cellWidth: "auto" },
-        2: { cellWidth: 25 },
+        2: { cellWidth: 40 },
         3: { cellWidth: 25 },
       },
     });
