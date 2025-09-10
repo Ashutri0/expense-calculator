@@ -3,7 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Orbitron", Verdana, sans-serif;
-/*     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
 }
 
 body {
@@ -375,6 +375,20 @@ button:hover {
         width: 100%;
         display: block;
         overflow-x: auto;
+
+        :nth-child(2){
+            min-width: 140px;
+        }
+        th, td{
+            min-width: 110px;
+            font-size: 14px;
+            padding: 8px;
+        }
+        th, td{
+            &:last-child{
+                min-width: 65px;
+            }
+        }
     }
 
     .action-buttons {
