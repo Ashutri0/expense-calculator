@@ -16,10 +16,9 @@
         <header>
             <h1>Expense Tracker</h1>
             <div class="month" id="monthDisplay" onclick="makeMonthEditable()">May 2023</div>
-            <input type="text" class="month-input" id="monthInput" value="May 2023" style="display: none;"
-                onblur="saveMonth()">
+            <input type="text" class="month-input" id="monthInput" value="May 2023" style="display: none;" onblur="saveMonth()">
         </header>
-
+        
         <div class="content">
             <div class="summary">
                 <div class="summary-card incoming">
@@ -35,7 +34,7 @@
                     <div class="amount" id="totalBalance">Rs. 0</div>
                 </div>
             </div>
-
+            
             <div class="expense-form">
                 <h2>Enter your expense here...</h2>
                 <form id="expenseForm">
@@ -47,21 +46,27 @@
                             <option value="outgoing">Outgoing</option>
                         </select>
                     </div>
-
-                    <div class="form-group">
-                        <label for="description">Enter description</label>
-                        <input type="text" id="description" placeholder="Description" required>
+                    
+                    <div class="form-group date-desc">
+                        <div>
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div>
+                            <label for="description">Description</label>
+                            <textarea id="description" placeholder="Enter description" required></textarea>
+                        </div>
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="amount">Enter Amount</label>
                         <input type="number" id="amount" placeholder="Amount in Rs." required min="0" step="0.01">
                     </div>
-
-                    <button class="submitexpense" type="submit">Submit Expense</button>
+                    
+                    <button type="submit">Submit Expense</button>
                 </form>
             </div>
-
+            
             <h2>Expense Records</h2>
             <table class="expense-table">
                 <thead>
@@ -78,7 +83,7 @@
                     </tr>
                 </tbody>
             </table>
-
+            
             <div class="action-buttons">
                 <button class="share-btn" onclick="shareAsPDF()">
                     <i class="fas fa-share"></i> Share as PDF

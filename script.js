@@ -9,6 +9,18 @@ let currentMonth = "May 2023";
 document.addEventListener("DOMContentLoaded", function () {
   const expenseForm = document.getElementById("expenseForm");
 
+  // Set default date to today
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  let mm = today.getMonth() + 1;
+  let dd = today.getDate();
+
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+
+  const formattedToday = `${yyyy}-${mm}-${dd}`;
+  document.getElementById("date").value = formattedToday;
+
   // Load data from localStorage
   loadFromLocalStorage();
 
@@ -17,18 +29,24 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     const type = document.getElementById("type").value;
+    const date = document.getElementById("date").value;
     const description = document.getElementById("description").value;
     const amount = parseFloat(document.getElementById("amount").value);
 
-    if (!type || !description || isNaN(amount) || amount <= 0) {
+    if (!type || !date || !description || isNaN(amount) || amount <= 0) {
       alert("Please fill all fields with valid values");
       return;
     }
+
+    // Format date for display
+    const formattedDate = formatDateForDisplay(date);
 
     if (editIndex === -1) {
       // Add new expense
       const newExpense = {
         type,
+        date: formattedDate,
+        rawDate: date,
         description,
         amount,
         id: Date.now(), // Unique ID for each expense
@@ -38,6 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // Update existing expense
       expenses[editIndex] = {
         type,
+        date: formattedDate,
+        rawDate: date,
         description,
         amount,
         id: expenses[editIndex].id, // Keep the same ID
@@ -52,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Reset form
     expenseForm.reset();
+    document.getElementById("date").value = formattedToday;
   });
 
   // Initialize action menus for existing rows
@@ -73,6 +94,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+function formatDateForDisplay(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}
 
 function loadFromLocalStorage() {
   // Load month
@@ -108,6 +138,9 @@ function renderExpenses() {
 
   tableBody.innerHTML = "";
 
+  // Sort expenses by date (newest first)
+  expenses.sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate));
+
   expenses.forEach((expense, index) => {
     const row = document.createElement("tr");
     row.className = expense.type + "-row";
@@ -118,7 +151,10 @@ function renderExpenses() {
                       expense.type.charAt(0).toUpperCase() +
                       expense.type.slice(1)
                     }</td>
-                    <td>${expense.description}</td>
+                    <td class="description-cell">
+                        <p class="description-text">${expense.description}</p>
+                        <p class="date-text">${expense.date}</p>
+                    </td>
                     <td>Rs. ${expense.amount.toLocaleString()}</td>
                     <td>
                         <div class="action-menu">
@@ -171,6 +207,7 @@ function deleteExpense(index) {
 function editExpense(index) {
   const expense = expenses[index];
   document.getElementById("type").value = expense.type;
+  document.getElementById("date").value = expense.rawDate;
   document.getElementById("description").value = expense.description;
   document.getElementById("amount").value = expense.amount;
 
@@ -266,13 +303,14 @@ function generatePDF(action) {
   });
 
   // Add table
-  const tableColumn = ["Type", "Description", "Amount"];
+  const tableColumn = ["Type", "Description", "Date", "Amount"];
   const tableRows = [];
 
   expenses.forEach((expense) => {
     tableRows.push([
       expense.type.charAt(0).toUpperCase() + expense.type.slice(1),
       expense.description,
+      expense.date,
       "Rs. " + expense.amount.toLocaleString(),
     ]);
   });
@@ -293,9 +331,10 @@ function generatePDF(action) {
         fillColor: [240, 240, 240],
       },
       columnStyles: {
-        0: { cellWidth: 30 },
+        0: { cellWidth: 25 },
         1: { cellWidth: "auto" },
-        2: { cellWidth: 40 },
+        2: { cellWidth: 25 },
+        3: { cellWidth: 25 },
       },
     });
   } else {
