@@ -329,9 +329,36 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-    .summary {
-        flex-direction: column;
+    header {
+        padding: 12px;
+
+        h1 {
+            font-size: 20px;
+        }
+
+        .month {
+            padding: 0;
+        }
     }
+
+    .content {
+        padding: 12px 8px;
+
+        .summary {
+            flex-direction: column;
+            margin-bottom: 15px;
+
+            .summary-card {
+                padding: 10px;
+                margin: 8px 0;
+            }
+        }
+
+        .expense-form {
+            padding: 12px;
+        }
+    }
+
 
     .summary-card {
         min-width: 100%;
