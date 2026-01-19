@@ -328,6 +328,9 @@ button:hover {
     color: #999;
     font-style: italic;
 }
+.seo-content{
+    display: none;
+}
 
 @media (max-width: 768px) {
     header {
