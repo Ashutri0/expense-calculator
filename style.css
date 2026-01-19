@@ -9,7 +9,6 @@
 body {
     background-color: #f5f7fa;
     color: #333;
-    padding: 20px;
     line-height: 1.6;
 }
 
@@ -67,13 +66,12 @@ h1 {
 }
 
 .content {
-    padding: 25px;
+    padding: 20px;
 }
 
 .summary {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 30px;
     flex-wrap: wrap;
 }
 
@@ -125,9 +123,9 @@ h1 {
 
 .expense-form {
     background: #f8f9fc;
-    padding: 25px;
+    padding: 10px 20px;
     border-radius: 8px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -214,7 +212,7 @@ button:hover {
 .expense-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .expense-table th {
@@ -316,10 +314,12 @@ button:hover {
 
 .incoming-row {
     border-left: 4px solid #1cc88a;
+    background-color: #ecffea;
 }
 
 .outgoing-row {
     border-left: 4px solid #e74a3b;
+    background-color: #fff0ef;
 }
 
 .empty-table {
