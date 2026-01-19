@@ -130,7 +130,7 @@ h1 {
 }
 
 .expense-form h2 {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     color: #4e73df;
     font-size: 20px;
 }
@@ -329,7 +329,7 @@ button:hover {
     font-style: italic;
 }
 .seo-content{
-    display: none;
+    font-size: 0.5px;
 }
 
 @media (max-width: 768px) {
