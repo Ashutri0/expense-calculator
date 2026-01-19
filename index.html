@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/?size=100&id=clEDP0882SQl&format=png&color=000000">
+    <link rel="icon" type="image/x-icon"
+        href="https://img.icons8.com/?size=100&id=clEDP0882SQl&format=png&color=000000">
 
     <!-- SEO META TAGS -->
     <title>Expense Tracker App | Track Monthly Income & Expenses Easily</title>
@@ -22,8 +23,7 @@
 
     <!-- Styles & Icons -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- PDF Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -45,119 +45,151 @@
             <input type="text" class="month-input" id="monthInput" value="Sept 2025" style="display: none;"
                 onblur="saveMonth()">
         </header>
-    <div class="content">
-        <!-- SUMMARY SECTION -->
-        <section class="summary">
-            <article class="summary-card incoming">
-                <h2>Total Incoming</h2>
-                <div class="amount" id="totalIncoming">&#8377; 0</div>
-            </article>
+        <div class="content">
+            <!-- SUMMARY SECTION -->
+            <section class="summary">
+                <article class="summary-card incoming">
+                    <h2>Total Incoming</h2>
+                    <div class="amount" id="totalIncoming">&#8377; 0</div>
+                </article>
 
-            <article class="summary-card outgoing">
-                <h2>Total Outgoing</h2>
-                <div class="amount" id="totalOutgoing">&#8377; 0</div>
-            </article>
+                <article class="summary-card outgoing">
+                    <h2>Total Outgoing</h2>
+                    <div class="amount" id="totalOutgoing">&#8377; 0</div>
+                </article>
 
-            <article class="summary-card balance">
-                <h2>Balance</h2>
-                <div class="amount" id="totalBalance">&#8377; 0</div>
-            </article>
-        </section>
+                <article class="summary-card balance">
+                    <h2>Balance</h2>
+                    <div class="amount" id="totalBalance">&#8377; 0</div>
+                </article>
+            </section>
 
-        <!-- EXPENSE FORM -->
-        <section class="expense-form">
-            <h2>Add Income or Expense</h2>
-            <p>
-                Easily record incoming and outgoing expenses with descriptions, dates, and amounts.
-            </p>
+            <!-- EXPENSE FORM -->
+            <section class="expense-form">
+                <h2>Add Income or Expense</h2>
+                <p>
+                    Easily record incoming and outgoing expenses with descriptions, dates, and amounts.
+                </p>
 
-            <form id="expenseForm">
-                <div class="form-group date-desc">
-                    <div>
-                        <label for="type">Expense Type</label>
-                        <select id="type" required>
-                            <option value="">-- Select Type --</option>
-                            <option value="incoming">Incoming</option>
-                            <option value="outgoing">Outgoing</option>
-                        </select>
+                <form id="expenseForm">
+                    <div class="form-group date-desc">
+                        <div>
+                            <label for="type">Expense Type</label>
+                            <select id="type" required>
+                                <option value="">-- Select Type --</option>
+                                <option value="incoming">Incoming</option>
+                                <option value="outgoing">Outgoing</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="date">Date</label>
-                        <input type="date" id="date" required>
+                    <div class="form-group date-desc">
+                        <div>
+                            <label for="description">Description</label>
+                            <textarea id="description" placeholder="Enter expense description" required></textarea>
+                        </div>
+
+                        <div>
+                            <label for="amount">Amount</label>
+                            <input type="number" id="amount" placeholder="Amount in ₹" required min="0" step="0.01">
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group date-desc">
-                    <div>
-                        <label for="description">Description</label>
-                        <textarea id="description" placeholder="Enter expense description" required></textarea>
-                    </div>
+                    <button type="submit">Submit Expense</button>
+                </form>
+            </section>
 
-                    <div>
-                        <label for="amount">Amount</label>
-                        <input type="number" id="amount" placeholder="Amount in ₹" required min="0" step="0.01">
-                    </div>
-                </div>
+            <!-- EXPENSE TABLE -->
+            <section>
+                <h2>Monthly Expense Records</h2>
+                <p>
+                    View, edit, or delete your recorded income and expenses for the selected month.
+                </p>
 
-                <button type="submit">Submit Expense</button>
-            </form>
-        </section>
+                <table class="expense-table">
+                    <thead>
+                        <tr>
+                            <th>Expense Type</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseTableBody">
+                        <tr class="empty-table">
+                            <td colspan="4">No expenses recorded yet. Start by adding your first entry.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
 
-        <!-- EXPENSE TABLE -->
-        <section>
-            <h2>Monthly Expense Records</h2>
-            <p>
-                View, edit, or delete your recorded income and expenses for the selected month.
-            </p>
+            <!-- ACTION BUTTONS -->
+            <section class="action-buttons">
+                <button class="share-btn" onclick="shareAsPDF()">
+                    <i class="fas fa-file-pdf"></i> Export as PDF
+                </button>
 
-            <table class="expense-table">
-                <thead>
-                    <tr>
-                        <th>Expense Type</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="expenseTableBody">
-                    <tr class="empty-table">
-                        <td colspan="4">No expenses recorded yet. Start by adding your first entry.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- ACTION BUTTONS -->
-        <section class="action-buttons">
-            <button class="share-btn" onclick="shareAsPDF()">
-                <i class="fas fa-file-pdf"></i> Export as PDF
-            </button>
-
-            <button class="print-btn" onclick="printPDF()">
-                <i class="fas fa-print"></i> Print Records
-            </button>
-        </section>
-    </div>
+                <button class="print-btn" onclick="printPDF()">
+                    <i class="fas fa-print"></i> Print Records
+                </button>
+            </section>
+        </div>
 
         <!-- SEO CONTENT BLOCK -->
+
         <section class="seo-content">
-            <h2>Why Use This Expense Tracker?</h2>
+            <h2>Smart Expense Tracker for Monthly Income and Expense Management</h2>
+
             <p>
-                This expense tracker app helps you manage your monthly budget efficiently.
-                Track income and expenses, calculate balances automatically, export PDF reports,
-                and store all data securely in your browser using local storage.
+                Managing personal finances becomes easier when you have a simple and reliable expense tracker.
+                This expense tracker app is designed to help you record, analyze, and manage your monthly income
+                and expenses without any complexity. Whether you are tracking daily spending, monitoring outgoing
+                payments, or recording incoming money, this tool gives you complete control over your finances.
             </p>
 
             <p>
-                Perfect for personal finance tracking, small business expense management,
-                and daily budget planning without any sign-up or backend.
+                With an intuitive interface, you can add expenses with clear descriptions, dates, and amounts.
+                The editable month selector allows you to switch between different months, making it easy to track
+                expenses over time. All expense records are displayed in a structured table where you can edit or
+                delete entries whenever needed. This flexibility makes the app suitable for personal budgeting,
+                freelancers, students, and small business owners.
+            </p>
+
+            <p>
+                The summary cards provide an instant overview of your financial health by showing total incoming,
+                total outgoing, and the remaining balance. This helps you understand your spending habits and
+                make informed financial decisions. Since all data is stored securely in your browser using local
+                storage, your information remains private and accessible even after refreshing or reopening the page.
+                No account creation or internet connection is required.
+            </p>
+
+            <p>
+                One of the key features of this expense tracker is the ability to export your expense records as a
+                PDF file. You can download a detailed expense report for the selected month and share it easily
+                or keep it for future reference. The built-in print support allows you to print your income and
+                expense records directly from the browser, making it ideal for offline documentation or budgeting
+                reviews.
+            </p>
+
+            <p>
+                This monthly expense tracker acts as a lightweight budget planner that helps you stay organized,
+                reduce unnecessary spending, and improve financial discipline. By tracking both income and outgoing
+                expenses in one place, you gain clarity and confidence in managing your money. Whether your goal is
+                saving more, controlling expenses, or simply understanding where your money goes, this expense
+                tracking app provides a practical and efficient solution.
             </p>
         </section>
+
 
     </main>
 
     <script src="script.js"></script>
 
 </body>
+
 </html>
